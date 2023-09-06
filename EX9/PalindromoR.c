@@ -5,49 +5,50 @@
 #define MAX 1000
 
 
-bool ehPalindromo(char palin[], int x){
-    
-    bool achar = true;
-    int y =  strlen(palin) - 1 - x;//variavel para ler do final ao inicio da string
-    while ( x < strlen(palin)/2)//testa ate o X e o Y forem iguais
+bool ehPalindromo(char palin[], int inicio, int fim)
+{
+
+    if (inicio >= fim)
     {
-        achar = (palin[x] == palin[y]);
-        if (achar)//se encontrar caractere diferente = false
-        {
-            x++;
-            achar = (achar && ehPalindromo(palin, x));
-        }
-        
+        return true;
     }
+    if (palin[inicio]!=palin[fim])//se caractere no inicio diferente de caractere fim retorna falso
+    {
+        return false;
+    }      
     
-    return achar;
+        return ehPalindromo(palin, inicio + 1, fim -1);//recursividade com as proximas letras atualizadas
 }
 
+void getString(char *a)
+{
+    fgets(a, MAX, stdin);//recebe palavra em palin com tamanho MAX
+
+   int comprimento = strlen(a);
+   if (comprimento > 0 && a[comprimento - 1]=='\n')//remove o \n e substitui por \0
+   {
+     a[comprimento - 1] = '\0';
+   }
+}
 int main()
 {
 
    char palin[MAX];
    while (1)
    {
-   
-   fgets(palin, MAX, stdin);//recebe palavra em palin com tamanho MAX
-
-   int comprimento = strlen(palin);
-   if (comprimento > 0 && palin[comprimento - 1]=='\n')//remove o \n e substitui por \0
-   {
-     palin[comprimento - 1] = '\0';
-   }
+   getString(palin);
    if (strcmp(palin, "FIM") == 0) 
    {    //se achar fim para o loop do main
             break;
    }
-        if(!ehPalindromo(palin, 0))
+    int comprimento = strlen(palin) - 1;//variavel para ler do final ao inicio da string
+        if(ehPalindromo(palin, 0, comprimento))
         {
-            printf("NAO\n");
+            printf("SIM\n");
         }
         else
         {
-            printf("SIM\n");
+            printf("NAO\n");
         }
    
    }
