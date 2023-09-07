@@ -1,21 +1,20 @@
-public class Cesar {
-    public static String Maistres (String cesar)
+public class CesarR {
+    public static String Maistres (String cesar, int i)
     {
+        if (i == cesar.length()) {
+            return "";
+        }
         char letra;//variavel para amarmazenar a letra a ser mudada
-        String saida = "";//string para saida da palavra codificada
         int codificar;//int para guardar o valor inteiro do caractere e incrementar 3
+        
 
-        for(int i = 0; i < cesar.length(); i++)
-        {
             letra = cesar.charAt(i);//atribui um caractere a letra
             codificar = letra;//transforma letra em valor numerico
-
             codificar = codificar + 3;//aumenta 3 no valor da letra
-            char letratres = (char) codificar;//atribui o valor da letra mais 3 a letra de novo
 
-            saida+=letratres;//construi o char de saida com a nova letra
-        }
-        return saida;
+            char letratres = (char) codificar;
+        
+        return letratres + Maistres(cesar, i + 1);
     }
     
     public static void main(String[] args) 
@@ -28,7 +27,7 @@ public class Cesar {
 
     while (!palavra.equals("FIM"))//enquanto a palavra nao for FIM codifica as palavras que sao lidas
     {
-        npalavra = Maistres(palavra);
+        npalavra = Maistres(palavra, 0);
         myIo.println(npalavra);
         palavra = MyIO.readLine();    
     }

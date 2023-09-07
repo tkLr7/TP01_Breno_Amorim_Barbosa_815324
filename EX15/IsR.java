@@ -1,10 +1,10 @@
-public class Is 
+public class IsR
 {
-    public static boolean Vogal(String parametro)
+    public static boolean Vogal(String parametro, int i)
     {
-        
-        for (int i = 0; i < parametro.length(); i++) 
-        {
+      if (i == parametro.length()) {
+       return true;
+    }    
           char letra = parametro.charAt(i);
           
           if (letra == 'a' || letra == 'A'||//verifica se e vogal
@@ -14,21 +14,18 @@ public class Is
               letra == 'u' || letra == 'U'
              ) 
           {
-           
-              continue;//se for vogal continua a vertificacao
+             return Vogal(parametro, i + 1);
           }
            else 
            {
              return false;//se nao for vogal retorna falso
            }
-        }
-        return true;
     }
-    public static boolean Consoante(String parametro)
+    public static boolean Consoante(String parametro, int i)
     {
-        
-        for (int i = 0; i < parametro.length(); i++) 
-        {
+      if (i == parametro.length()) {
+       return true;
+    }
           char letra = parametro.charAt(i);
           
           if ((letra<= 'z' && letra >= 'a' ||
@@ -37,58 +34,52 @@ public class Is
 				       letra != 'A' && letra != 'E' && letra != 'I' && letra != 'O' && letra != 'U')//verifica se nao e vogal 
                 
           { 
-              
-              continue;//se for consoante continua a vertificacao
+            return Consoante(parametro, i + 1);
           }
            else 
            {
              return false;//se nao for consoante retorna falso
            }
-        }
-        return true;
     }
-    public static boolean Inteiro(String parametro)
+    public static boolean Inteiro(String parametro, int i)
     {
+      if (i == parametro.length()) {
+       return true;
+    }  
         
-        for (int i = 0; i < parametro.length(); i++) 
-        {
           char letra = parametro.charAt(i);
           
           if (letra <= '9' && letra >= '0')
           {
-            
-              continue;//se for numero inteiro continua a vertificacao
+            return Inteiro(parametro, i + 1);
           }
            else 
            {
              return false;//se nao for numero inteiro retorna falso
            }
-        }
-        return true;
+        
     }
-    public static boolean Real(String parametro)
+    public static boolean Real(String parametro, int i, boolean decimal)
     {
-        boolean decimal = false;//variavel pra dectar pontuacao de decimal
-        for (int i = 0; i < parametro.length(); i++) 
-        {
+      if (i == parametro.length()) {
+       return true;
+    }  
+         decimal = false;//variavel pra dectar pontuacao de decimal
+        
           char letra = parametro.charAt(i);
           
           if (letra == '.' && !decimal)//se tiver ponto e decimal e continua
           {
-            decimal = true;
-            continue;
+            return Real(parametro, i + 1, decimal = true);
           }
           if (letra <= '9' && letra >= '0')
           {
-              
-              continue;//se for numero real continua a vertificacao
+            return Real(parametro, i + 1, decimal);
           }
            else 
            {
              return false;//se nao for numero real retorna falso
            }
-        }
-        return true;
     }
 
     public static void main(String[] args) 
@@ -101,7 +92,7 @@ public class Is
         while (!entrada.equals("FIM")) 
         {
           
-            if (Vogal(entrada)) 
+            if (Vogal(entrada, 0)) 
             
                 MyIO.print("SIM ");
         
@@ -109,21 +100,21 @@ public class Is
 				MyIO.print("NAO ");
 
             
-             if (Consoante(entrada)) 
+             if (Consoante(entrada, 0)) 
             
                 MyIO.print("SIM ");
             
             else
 				MyIO.print("NAO ");
             
-             if (Inteiro(entrada)) 
+             if (Inteiro(entrada, 0)) 
             
                 MyIO.print("SIM ");
             
             else
 				MyIO.print("NAO ");
             
-             if (Real(entrada)) 
+             if (Real(entrada, 0, false)) 
             
                 MyIO.print("SIM\n");
             
